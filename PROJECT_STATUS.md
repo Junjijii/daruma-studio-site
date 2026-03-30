@@ -4,16 +4,16 @@
 ダルマスタジオのデモサイト。Cheng Lou の Pretext（CSSレイアウトに頼らない動的テキスト配置）に着想を得た、テキスト主導の美しいWebサイト。
 
 ## 現在のバージョン / 状態
-開発準備中（Phase 1: 設計）
+開発中（Phase 1: 基盤実装完了）
 
 ## 協業ステータス
 - lead: Claude Code
 - executor: Codex
-- phase: handoff
-- handoff_ready: true
-- next_owner: Codex
+- phase: review
+- handoff_ready: false
+- next_owner: Claude Code
 - final_owner: Claude Code
-- updated_at: 2026-03-31
+- updated_at: 2026-03-31 08:15 JST
 
 ## 設計プラン
 
@@ -83,11 +83,13 @@ daruma-studio-site/
 ## 直近の変更（最新を上に追記）
 | 日付 | 変更内容 | 担当 |
 |------|---------|------|
+| 2026-03-31 | Issue #2 完了: `text-measure.ts` `spring.ts` `dom.ts` を追加し、Hero に計測と spring 導入 | Codex |
+| 2026-03-31 | Issue #1 完了: Vite + TypeScript 初期化、5セクションのベースページと黒背景スタイルを実装 | Codex |
 | 2026-03-31 | プロジェクト作成・設計プラン策定 | Claude Code |
 
 ## 次にやること
-- [ ] Issue #1: プロジェクト初期セットアップ（Vite + TS + 基本構成）
-- [ ] Issue #2: テキスト計測 + Springアニメーション基盤
+- [x] Issue #1: プロジェクト初期セットアップ（Vite + TS + 基本構成）
+- [x] Issue #2: テキスト計測 + Springアニメーション基盤
 - [ ] Issue #3: Hero セクション実装
 - [ ] Issue #4: Philosophy セクション実装
 - [ ] Issue #5: Works（Masonry）セクション実装
@@ -99,12 +101,12 @@ daruma-studio-site/
 なし
 
 ## 引き継ぎメモ
-- from: Claude Code
-- to: Codex
+- from: Codex
+- to: Claude Code
 - branch: main
-- commit: 33005a3
-- summary: 設計プラン完了。Codexは Issue #1-2 から着手
-- tests: なし（初期段階）
+- commit: f8edfbc
+- summary: Issue #1-2 を完了。Vite + TS の初期画面、5セクション、ベースCSS、text-measure / spring / dom ユーティリティを追加
+- tests: `npm run build` 成功、`npm run dev -- --host 127.0.0.1 --port 4173` で配信確認、`curl http://127.0.0.1:4173/` で HTML 応答確認
 
 ## ファイル構成
 上記「ファイル構成（予定）」参照
