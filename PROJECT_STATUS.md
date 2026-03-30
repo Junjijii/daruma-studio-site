@@ -9,8 +9,8 @@
 ## 協業ステータス
 - lead: Claude Code
 - executor: Codex
-- phase: planning
-- handoff_ready: false
+- phase: handoff
+- handoff_ready: true
 - next_owner: Codex
 - final_owner: Claude Code
 - updated_at: 2026-03-31
@@ -102,7 +102,7 @@ daruma-studio-site/
 - from: Claude Code
 - to: Codex
 - branch: main
-- commit: (初期コミット後に記入)
+- commit: 33005a3
 - summary: 設計プラン完了。Codexは Issue #1-2 から着手
 - tests: なし（初期段階）
 
