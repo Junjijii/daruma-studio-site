@@ -1,4 +1,7 @@
 import './style.css'
+import { measureText } from './layout/text-measure'
+import { createSpring } from './layout/spring'
+import { createElement, queryOrThrow } from './utils/dom'
 
 const sectionContent = [
   {
@@ -29,15 +32,73 @@ const sectionContent = [
 ]
 
 for (const section of sectionContent) {
-  const element = document.getElementById(section.id)
+  const element = queryOrThrow<HTMLElement>(`#${section.id}`)
+  const title = createElement('h1', {
+    className: section.id === 'hero' ? 'section-title section-title--hero' : 'section-title',
+    text: section.title,
+  })
 
-  if (!element) {
-    continue
+  element.replaceChildren(
+    createElement('p', {
+      className: 'section-label',
+      text: element.dataset.label ?? '',
+    }),
+    title,
+    createElement('p', {
+      className: 'section-body',
+      text: section.body,
+    }),
+  )
+
+  if (section.id === 'hero') {
+    syncHeroMeasure(title, section.title)
+    animateHero(title)
+  }
+}
+
+function syncHeroMeasure(title: HTMLElement, text: string): void {
+  const applyMeasure = () => {
+    const metrics = measureText(text, {
+      fontFamily: '"Noto Sans JP", sans-serif',
+      fontSize: 84,
+      fontWeight: 700,
+      lineHeight: 0.95,
+      letterSpacing: -1.5,
+    })
+
+    title.style.maxWidth = `min(${Math.ceil(metrics.width)}px, 100%)`
   }
 
-  element.innerHTML = `
-    <p class="section-label">${element.dataset.label ?? ''}</p>
-    <h1 class="section-title">${section.title}</h1>
-    <p class="section-body">${section.body}</p>
-  `
+  applyMeasure()
+
+  if ('fonts' in document) {
+    void document.fonts.ready.then(applyMeasure)
+  }
+}
+
+function animateHero(title: HTMLElement): void {
+  const spring = createSpring({
+    value: 0,
+    target: 1,
+    mass: 1,
+    stiffness: 180,
+    damping: 20,
+  })
+
+  let previousTime = performance.now()
+
+  const tick = (time: number) => {
+    const dt = Math.min((time - previousTime) / 1000, 0.05)
+    previousTime = time
+
+    const { value } = spring.update(dt)
+    title.style.setProperty('--hero-progress', value.toFixed(4))
+
+    if (!spring.isAtRest()) {
+      requestAnimationFrame(tick)
+    }
+  }
+
+  title.style.setProperty('--hero-progress', '0')
+  requestAnimationFrame(tick)
 }

@@ -73,6 +73,14 @@ p {
   max-width: 10ch;
 }
 
+.section-title--hero {
+  --hero-progress: 1;
+  opacity: calc(0.3 + var(--hero-progress) * 0.7);
+  transform: translate3d(0, calc((1 - var(--hero-progress)) * 24px), 0);
+  transform-origin: left bottom;
+  will-change: transform, opacity;
+}
+
 .section-body {
   max-width: 36rem;
   color: var(--muted);
