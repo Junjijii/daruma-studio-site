@@ -1,0 +1,93 @@
+:root {
+  color-scheme: dark;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --background: #050505;
+  --surface: #101010;
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --text: #f5f1ea;
+  --muted: rgba(245, 241, 234, 0.72);
+  --accent: #d73b2e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(215, 59, 46, 0.18), transparent 34%),
+    var(--background);
+  color: var(--text);
+}
+
+body,
+h1,
+p {
+  margin: 0;
+}
+
+#app {
+  width: min(1120px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 24px 0 64px;
+}
+
+.site-section {
+  min-height: min(18rem, 32vh);
+  padding: 28px;
+  border-top: 1px solid var(--surface-border);
+  display: grid;
+  align-content: end;
+  gap: 12px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02));
+}
+
+.site-section:last-child {
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.section-label {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  max-width: 10ch;
+}
+
+.section-body {
+  max-width: 36rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  line-height: 1.7;
+}
+
+@media (max-width: 720px) {
+  #app {
+    width: min(100vw - 24px, 1120px);
+    padding-top: 16px;
+  }
+
+  .site-section {
+    min-height: 14rem;
+    padding: 20px;
+  }
+}
