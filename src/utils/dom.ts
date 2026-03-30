@@ -1,3 +1,4 @@
+import type { TextLayoutResult } from '../layout/text-measure'
 type DOMChild = Node | string
 
 interface CreateElementOptions {
@@ -56,6 +57,23 @@ export function appendChildren(parent: Element, children: DOMChild[]): void {
   for (const child of children) {
     parent.append(child)
   }
+}
+
+export function createLineStack(layout: TextLayoutResult, className: string): HTMLDivElement {
+  const stack = createElement('div', {
+    className,
+  })
+
+  stack.replaceChildren(
+    ...layout.linesText.map((line) => {
+      return createElement('span', {
+        className: `${className}__line`,
+        text: line.length > 0 ? line : '\u00A0',
+      })
+    }),
+  )
+
+  return stack
 }
 
 export function queryOrThrow<T extends Element>(
